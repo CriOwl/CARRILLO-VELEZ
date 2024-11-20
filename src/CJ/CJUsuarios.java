@@ -4,9 +4,13 @@ import java.util.Scanner;
 
 public class CJUsuarios {
     private String cjusuario,cjclave;
+    private int cjintentos=0;
+    private CJSistema cjjugador;
+
     public CJUsuarios(){
         setcjusuario("carrillo-vezlez-pacha");
         setcjclave("1234");
+        cjjugador= new CJSistema();
     }
 
     public String getcjusuario() {
@@ -37,26 +41,28 @@ public class CJUsuarios {
         String cjclave = "";
         boolean cjsinLogear = true;
         do {
-            System.out.print(" Ingrese el cjusuario: ");
+            System.out.print(" Ingrese el usuario: ");
             cjusuario = CJUtilitarios.entrada.nextLine();
-            System.out.print(" Ingrese el cjclave: ");
+            System.out.print(" Ingrese el clave: ");
             cjclave = CJUtilitarios.entrada.nextLine();
             Scanner cjseparador= new Scanner(this.cjusuario).useDelimiter("-");
-            while(cjseparador.hasNext()){
+            do{            
+                while(cjseparador.hasNext()){
                 cjvarios_usuarios=cjseparador.next();
                 if (cjvarios_usuarios.equalsIgnoreCase(cjusuario) && this.cjclave.equalsIgnoreCase(cjclave)) {
-                    //metodo
+                    System.out.println("ingresaste");
+                    cjmostrarInformacion();
                     break;
-                } 
+                }
+                cjintentos++; 
+                System.out.println(" Datos erroneos! ");
+                System.out.print(" Para salir, ingrese (s): ");
+                if (CJUtilitarios.entrada.nextLine().toUpperCase().equals("S")) {
+                    cjsinLogear = false;
+                }
             }
-
-            System.out.println(" Datos erroneos! ");
-            System.out.print(" Para salir, ingrese (s): ");
-            if (CJUtilitarios.entrada.nextLine().toUpperCase().equals("S")) {
-                cjsinLogear = false;
-            }
-        } while (cjsinLogear);
+            } while (cjsinLogear);
+        }while (this.cjintentos!=3)
         return true;
     }
-
 }
