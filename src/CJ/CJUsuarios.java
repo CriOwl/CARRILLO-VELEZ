@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class CJUsuarios {
     private String cjusuario,cjclave;
-    private int cjintentos=0;
+    private int cjintentos=1;
     private CJSistema cjjugador;
 
     public CJUsuarios(){
@@ -51,18 +51,18 @@ public class CJUsuarios {
                 cjvarios_usuarios=cjseparador.next();
                 if (cjvarios_usuarios.equalsIgnoreCase(cjusuario) && this.cjclave.equalsIgnoreCase(cjclave)) {
                     System.out.println("ingresaste");
-                    cjmostrarInformacion();
                     break;
                 }
                 cjintentos++; 
                 System.out.println(" Datos erroneos! ");
+                System.out.println(" Intentos: " + cjintentos+ "! ");
                 System.out.print(" Para salir, ingrese (s): ");
                 if (CJUtilitarios.entrada.nextLine().toUpperCase().equals("S")) {
                     cjsinLogear = false;
                 }
             }
-            } while (cjsinLogear);
-        }while (this.cjintentos!=3)
+            } while(cjsinLogear);
+        } while (this.cjintentos!=3);
         return true;
     }
 }
